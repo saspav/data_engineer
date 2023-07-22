@@ -13,4 +13,4 @@ for line in sys.stdin:
         continue
 
 for word, count in word_counts.items():
-    print(f'{word} {count}')
+    print(f'{word}\t{count}')
