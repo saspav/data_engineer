@@ -3,7 +3,7 @@ import sys
 from collections import defaultdict
 
 word_counts = defaultdict(int)
-for line in data:
+for line in map(str.strip, sys.stdin):
     word, count = line.rsplit('\t', 1)
     try:
         word_counts[word] += int(count)
