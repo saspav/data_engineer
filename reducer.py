@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 import sys
-
 from collections import defaultdict
 
 word_counts = defaultdict(int)
-
-for line in sys.stdin:
-    word, count = line.split('\t', 1)
+for line in data:
+    word, count = line.rsplit('\t', 1)
     try:
         word_counts[word] += int(count)
     except ValueError:
-        continue
+        pass
 
-for word, count in word_counts.items():
+for word, count in sorted(word_counts.items(), key=lambda x: (-x[1], x[0])):
     print(f'{word}\t{count}')
