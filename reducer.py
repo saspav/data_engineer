@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 import sys
-from collections import defaultdict
 
-word_counts = defaultdict(int)
+current_word = word = None
+current_count = 0
 for line in map(str.strip, sys.stdin):
     word, count = line.rsplit('\t', 1)
     try:
-        word_counts[word] += int(count)
+        count = int(count)
     except ValueError:
-        pass
+        continue
 
-for word, count in sorted(word_counts.items(), key=lambda x: (-x[1], x[0])):
-    print(f'{word}\t{count}')
+    if current_word == word:
+        current_count += count
+    else:
+        if current_word:
+            print(f'{current_word}\t{current_count}')
+        current_word, current_count = word, count
+
+if current_word == word:
+    print(f'{current_word}\t{current_count}')
