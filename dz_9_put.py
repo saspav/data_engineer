@@ -1,3 +1,5 @@
+"""Генерация потока данных"""
+
 import json
 import random
 from datetime import datetime, timedelta

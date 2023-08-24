@@ -1,3 +1,5 @@
+"""Чтение данных из очереди сообщений"""
+
 import json
 import pg8000
 from datetime import datetime
@@ -20,7 +22,7 @@ try:
         "lab10_pavlov",
         bootstrap_servers='vm-strmng-s-1.test.local:9092',
         group_id='my-group',
-        enable_auto_commit=True,
+        # enable_auto_commit=True,
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
 
