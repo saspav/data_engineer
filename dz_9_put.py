@@ -34,6 +34,6 @@ for idx in range(num_requests):
                "opened": open_date.strftime("%d.%m.%Y %H:%M"),
                "priority": priority_choices[idx % 20]}
 
-    producer.send("lab10_pavlov", json.dumps(request))
+    producer.send("lab10_pavlov", json.dumps(request).encode('utf-8'))
 
 producer.close()
