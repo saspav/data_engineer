@@ -17,6 +17,7 @@ port = config.get(base_name, 'host_port')
 
 try:
     conn = pg8000.connect(database=dbname, user=user, password=pswd, host=host, port=port)
+    cursor = conn.cursor()
 
     consumer = KafkaConsumer(
         "lab10_pavlov",
@@ -35,7 +36,6 @@ try:
         table_name = f"lab10_pavlov_{data.get('priority', 0)}"
 
         query = "INSERT INTO {} (client, opened) VALUES (%s, %s)".format(table_name)
-        cursor = conn.cursor()
         cursor.execute(query, (client, opened))
         conn.commit()
 
