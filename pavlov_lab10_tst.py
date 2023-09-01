@@ -31,7 +31,7 @@ def check_and_create_table():
 
     # Если таблица не существует, создаем ее
     if not table_exists:
-        create_table_query = f"CREATE TABLE {TABLE_NAME} (message text)"
+        create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message);"""
         cursor.execute(create_table_query)
         conn.commit()
 
@@ -56,7 +56,6 @@ with DAG(DAG_NAME, description="Pavlov's test DAG",
          max_active_runs=1,
          default_args=args,
          params={'labels': {'env': 'prod', 'priority': 'high'}}) as dag:
-
     start_operator = PythonOperator(task_id='start',
                                     python_callable=start_task,
                                     provide_context=True)
