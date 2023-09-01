@@ -10,7 +10,7 @@ MSG = f'Текущая дата: {datetime.now()}'
 DAG_NAME = 'pavlov_tst'
 GP_CONN_ID = 'pavlov_con'
 TABLE_NAME = 'lab_10_pavlov_tst'
-SQL_INSERT = f'insert into {TABLE_NAME}(message) values({MSG});'
+SQL_INSERT = f"insert into {TABLE_NAME}(message) values('{MSG}');"
 
 args = {'owner': 'pavlov',
         'start_date': datetime(2023, 9, 1),
