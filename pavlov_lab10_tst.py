@@ -31,7 +31,7 @@ def check_and_create_table():
 
     # Если таблица не существует, создаем ее
     if not table_exists:
-        create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message);"""
+        create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message)"""
         cursor.execute(create_table_query)
         conn.commit()
 
