@@ -56,6 +56,7 @@ with DAG(DAG_NAME, description="Pavlov's test DAG",
          max_active_runs=1,
          default_args=args,
          params={'labels': {'env': 'prod', 'priority': 'high'}}) as dag:
+
     start_operator = PythonOperator(task_id='start',
                                     python_callable=start_task,
                                     provide_context=True)
