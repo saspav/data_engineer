@@ -25,7 +25,7 @@ def check_and_create_table():
     cursor = conn.cursor()
 
     # Проверка наличия таблицы
-    check_table_query = f"SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = {TABLE_NAME})"
+    check_table_query = f"SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = '{TABLE_NAME}')"
     cursor.execute(check_table_query)
     table_exists = cursor.fetchone()[0]
 
