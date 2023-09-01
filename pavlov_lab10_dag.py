@@ -9,12 +9,12 @@ from datetime import datetime, timedelta
 MSG = 'Павлов А.В.: Всем удачи! 🙂'
 DAG_NAME = 'pavlov_dag'
 GP_CONN_ID = 'pavlov_con'
-SQL_INS = f'insert into lab_10_pavlov(message) values({MSG});'
+SQL_INS = f"insert into lab_10_pavlov(message) values('{MSG}');"
 
 args = {'owner': 'pavlov',
         'start_date': datetime(2023, 9, 1),
         'retries': 3,
-        'retry_delay': timedelta(seconds=600)}
+        'retry_delay': timedelta(seconds=60)}
 
 
 def start_task(**kwargs):
@@ -27,7 +27,7 @@ def finish_task(**kwargs):
     print('Finish')
 
 
-with DAG(DAG_NAME, description="Pavlov's DAG",
+with DAG(DAG_NAME, description="Pavlov_DAG",
          schedule_interval='* * * * *',
          catchup=False,
          max_active_runs=1,
