@@ -42,21 +42,6 @@ def check_and_create_table():
     conn.close()
 
 
-# Создание экземпляра DAG
-dag = DAG(
-    dag_id='check_create_table_dag',
-    start_date=datetime(2022, 1, 1),
-    schedule_interval=None
-)
-
-# Создание оператора PythonOperator для проверки и создания таблицы
-check_create_table_operator = PythonOperator(
-    task_id='check_create_table',
-    python_callable=check_and_create_table,
-    dag=dag
-)
-
-
 def start_task(**kwargs):
     print('Start')
 
@@ -76,6 +61,11 @@ with DAG(DAG_NAME, description="Pavlov's DAG",
     start_operator = PythonOperator(task_id='startSP',
                                     python_callable=start_task,
                                     provide_context=True)
+
+    check_create_table_operator = PythonOperator(task_id='check_create_table',
+                                                 python_callable=check_and_create_table,
+                                                 provide_context=True
+                                                 )
 
     finish_operator = PythonOperator(task_id='finishSP',
                                      python_callable=finish_task,
