@@ -37,6 +37,7 @@ def check_and_create_table():
         create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message)"""
         cursor.execute(create_table_query)
         conn.commit()
+
         msg = f'Павлов АВ: таблица {TABLE_NAME} создана. {MSG}'
         send_text = f'https://api.telegram.org/bot968097013:AAGfYL_p6CJmfcZctBN81MwEsmgZ4zeENX0/sendMessage?chat_id=-1001915901409&parse_mode=Markdown&text={msg}'
         requests.get(send_text)
