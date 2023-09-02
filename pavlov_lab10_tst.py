@@ -10,6 +10,9 @@ MSG = f'Текущая дата: {datetime.now()}'
 DAG_NAME = 'pavlov_tst'
 GP_CONN_ID = 'pavlov_con'
 TABLE_NAME = 'lab_10_pavlov_tst'
+
+SQL_CREATE_TABLE = f"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message);"
+
 SQL_INSERT = f"insert into {TABLE_NAME}(message) values('{MSG}');"
 
 args = {'owner': 'pavlov',
@@ -69,9 +72,14 @@ with DAG(DAG_NAME, description="Pavlov's test DAG",
                                                  provide_context=True
                                                  )
 
-    sql_ins = PostgresOperator(task_id='greenplum',
-                               sql=SQL_INSERT,
-                               postgres_conn_id=GP_CONN_ID,
-                               autocommit=True)
+    sql_create_table = PostgresOperator(task_id='greenplum',
+                                        sql=SQL_CREATE_TABLE,
+                                        postgres_conn_id=GP_CONN_ID,
+                                        autocommit=True)
 
-    start_operator >> check_create_table_operator >> sql_ins >> finish_operator
+    sql_insert = PostgresOperator(task_id='greenplum',
+                                  sql=SQL_INSERT,
+                                  postgres_conn_id=GP_CONN_ID,
+                                  autocommit=True)
+
+    start_operator >> sql_create_table >> sql_insert >> finish_operator
