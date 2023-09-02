@@ -77,10 +77,10 @@ with DAG(DAG_NAME, description="Pavlov's test DAG",
                                                  provide_context=True
                                                  )
 
-    sql_create_table = PostgresOperator(task_id='GP_create_table',
-                                        sql=SQL_CREATE_TABLE,
-                                        postgres_conn_id=GP_CONN_ID,
-                                        autocommit=True)
+    # sql_create_table = PostgresOperator(task_id='GP_create_table',
+    #                                     sql=SQL_CREATE_TABLE,
+    #                                     postgres_conn_id=GP_CONN_ID,
+    #                                     autocommit=True)
 
     sql_insert = PostgresOperator(task_id='GP_insert_record',
                                   sql=SQL_INSERT,
