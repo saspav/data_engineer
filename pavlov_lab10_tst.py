@@ -34,7 +34,7 @@ def check_and_create_table():
 
     # Если таблица не существует, создаем ее
     if not table_exists:
-        create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message)"""
+        create_table_query = f"""CREATE TABLE {TABLE_NAME} (message varchar NULL) DISTRIBUTED BY (message);"""
         cursor.execute(create_table_query)
         conn.commit()
 
@@ -43,13 +43,13 @@ def check_and_create_table():
         send_text = f'https://api.telegram.org/bot968097013:AAGfYL_p6CJmfcZctBN81MwEsmgZ4zeENX0/sendMessage?chat_id=-1001915901409&parse_mode=Markdown&text={msg}'
         response = requests.get(send_text)
 
-        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response}')"
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response}');"
         cursor.execute(insert_table_query)
-        conn.commit()
-        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.text}')"
+
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.text}');"
         cursor.execute(insert_table_query)
-        conn.commit()
-        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.content}')"
+
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.content}');"
         cursor.execute(insert_table_query)
         conn.commit()
 
