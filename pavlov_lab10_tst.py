@@ -41,7 +41,17 @@ def check_and_create_table():
         # msg = f'Павлов АВ: таблица {TABLE_NAME} создана. {MSG}'
         msg = f'Павлов АВ: таблица {TABLE_NAME} создана.'.replace(' ', '_')
         send_text = f"https://api.telegram.org/bot968097013:AAGfYL_p6CJmfcZctBN81MwEsmgZ4zeENX0/sendMessage?chat_id=-1001915901409&parse_mode=Markdown&text={msg}"
-        requests.get(send_text)
+        response = requests.get(send_text)
+
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response}')"
+        cursor.execute(insert_table_query)
+        conn.commit()
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.text}')"
+        cursor.execute(insert_table_query)
+        conn.commit()
+        insert_table_query = f"insert into {TABLE_NAME}(message) values('{response.content}')"
+        cursor.execute(insert_table_query)
+        conn.commit()
 
     # Закрытие соединения
     cursor.close()
